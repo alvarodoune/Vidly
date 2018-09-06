@@ -15,5 +15,28 @@ namespace Vidly.Controllers
             var movie = new Movie() { Name = "Scherk!" };
             return View(movie);
         }
+
+        //Edit/1
+        public ActionResult Edit(int id)
+        {
+            return Content("id=" + id);
+        }
+
+        //movies
+        public ActionResult Index(int? pageIndex, string sortBy)
+        {
+            if (!pageIndex.HasValue)
+                pageIndex = 1;
+            if (string.IsNullOrWhiteSpace(sortBy))
+                sortBy = "name";
+
+            return Content(string.Format("pageIndex={0}&sortBy={1}", pageIndex, sortBy));
+        }
+
+        [Route("movies/releases/{year}/{month:regex(\\d{2}):range(1, 12)}")]
+        public ActionResult ByReleaseDate (int year, int month)
+        {
+            return Content(year + "/" + month);
+        }
     }
 }
